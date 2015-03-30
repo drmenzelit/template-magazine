@@ -19,7 +19,7 @@ $params  = $displayData->params;
 	<?php if ($images->image_intro_caption):
 		echo 'class="caption img-responsive img-border img-full"' . ' title="' . htmlspecialchars($images->image_intro_caption) . '"';
 	endif; ?>
-	src="<?php echo htmlspecialchars($images->image_intro); ?>" alt="<?php echo htmlspecialchars($images->image_intro_alt); ?>" itemprop="thumbnailUrl"/></a>
+	src="<?php echo htmlspecialchars($images->image_intro); ?>" class="img-responsive img-border img-full" alt="<?php echo htmlspecialchars($images->image_intro_alt); ?>" itemprop="thumbnailUrl"/></a>
 	<?php else : ?><img
 	<?php if ($images->image_intro_caption):
 		echo 'class="caption img-responsive img-border img-full"' . ' title="' . htmlspecialchars($images->image_intro_caption) . '"';
