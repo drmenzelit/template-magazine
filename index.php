@@ -47,8 +47,9 @@ $doc->addStyleSheet($tpath.'/css/business-casual.css');
 
 <body class="<?php echo (($menu->getActive() == $menu->getDefault()) ? ('front') : ('page')).' '.$active->alias.' '.$pageclass; ?>">
     <div class="brand"><?php echo $app->getCfg('sitename'); ?></div>
-    <div class="address-bar"><jdoc:include type="modules" name="top" style="xhtml" /></div>
-
+    <?php if($this->countModules('top')) : ?>
+	<div class="address-bar"><jdoc:include type="modules" name="top" style="xhtml" /></div>
+	<?php endif; ?>
     <!-- Navigation -->
     <nav class="navbar navbar-default" role="navigation">
         <div class="container">
