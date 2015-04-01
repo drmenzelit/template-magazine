@@ -26,6 +26,7 @@ $doc->addStyleSheet($tpath.'/css/bootstrap.min.css');
 $doc->addStyleSheet($tpath.'/css/business-casual.css');
 
 ?>
+<!doctype html>
 <html lang="<?php echo $this->language; ?>">
 <head>
 	<jdoc:include type="head" />
