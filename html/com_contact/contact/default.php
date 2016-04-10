@@ -3,7 +3,7 @@
  * @package     Joomla.Site
  * @subpackage  com_contact
  *
- * @copyright   Copyright (C) 2005 - 2015 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2016 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -18,6 +18,7 @@ $cparams = JComponentHelper::getParams('com_media');
 			<?php echo $this->escape($this->params->get('page_heading')); ?>
 		</h1>
 	<?php endif; ?>
+
 	<?php if ($this->contact->name && $this->params->get('show_name')) : ?>
 		<div class="page-header">
 			<hr>
@@ -35,6 +36,9 @@ $cparams = JComponentHelper::getParams('com_media');
 			<span class="contact-category"><?php echo $this->contact->category_title; ?></span>
 		</h3>
 	<?php endif; ?>
+
+	<?php echo $this->item->event->afterDisplayTitle; ?>
+
 	<?php if ($this->params->get('show_contact_category') == 'show_with_link') : ?>
 		<?php $contactLink = ContactHelperRoute::getCategoryRoute($this->contact->catid); ?>
 		<h3>
@@ -43,6 +47,7 @@ $cparams = JComponentHelper::getParams('com_media');
 			</span>
 		</h3>
 	<?php endif; ?>
+
 	<?php if ($this->params->get('show_contact_list') && count($this->contacts) > 1) : ?>
 		<form action="#" method="get" name="selectForm" id="selectForm">
 			<?php echo JText::_('COM_CONTACT_SELECT_CONTACT'); ?>
@@ -55,9 +60,12 @@ $cparams = JComponentHelper::getParams('com_media');
 		<?php echo $this->item->tagLayout->render($this->item->tags->itemTags); ?>
 	<?php endif; ?>
 
+	<?php echo $this->item->event->beforeDisplayContent; ?>
+
  	<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
 		<?php echo JHtml::_('bootstrap.startAccordion', 'slide-contact', array('active' => 'basic-details')); ?>
 	<?php endif; ?>
+
 	<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
 		<?php echo JHtml::_('bootstrap.startTabSet', 'myTab', array('active' => 'basic-details')); ?>
 	<?php endif; ?>
@@ -65,9 +73,11 @@ $cparams = JComponentHelper::getParams('com_media');
 	<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
 		<?php echo JHtml::_('bootstrap.addSlide', 'slide-contact', JText::_('COM_CONTACT_DETAILS'), 'basic-details'); ?>
 	<?php endif; ?>
+
 	<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
 		<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'basic-details', JText::_('COM_CONTACT_DETAILS', true)); ?>
 	<?php endif; ?>
+
 	<?php if ($this->params->get('presentation_style') == 'plain'):?>
 		<?php  echo '<h3>' . JText::_('COM_CONTACT_DETAILS') . '</h3>';  ?>
 	<?php endif; ?>
@@ -97,6 +107,7 @@ $cparams = JComponentHelper::getParams('com_media');
 	<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
 		<?php echo JHtml::_('bootstrap.endSlide'); ?>
 	<?php endif; ?>
+
 	<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
 		<?php echo JHtml::_('bootstrap.endTab'); ?>
 	<?php endif; ?>
@@ -109,7 +120,8 @@ $cparams = JComponentHelper::getParams('com_media');
 		<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
 			<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'display-form', JText::_('COM_CONTACT_EMAIL_FORM', true)); ?>
 		<?php endif; ?>
-		<?php if ($this->params->get('presentation_style') == 'plain'):?>
+
+		<?php if ($this->params->get('presentation_style') == 'plain'): ?>
 			<?php echo '<h3>' . JText::_('COM_CONTACT_EMAIL_FORM') . '</h3>';  ?>
 		<?php endif; ?>
 
@@ -118,10 +130,10 @@ $cparams = JComponentHelper::getParams('com_media');
 		<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
 			<?php echo JHtml::_('bootstrap.endSlide'); ?>
 		<?php endif; ?>
-			<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
-		<?php echo JHtml::_('bootstrap.endTab'); ?>
-			<?php endif; ?>
 
+		<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
+			<?php echo JHtml::_('bootstrap.endTab'); ?>
+		<?php endif; ?>
 	<?php endif; ?>
 
 	<?php if ($this->params->get('show_links')) : ?>
@@ -133,9 +145,11 @@ $cparams = JComponentHelper::getParams('com_media');
 		<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
 			<?php echo JHtml::_('bootstrap.addSlide', 'slide-contact', JText::_('JGLOBAL_ARTICLES'), 'display-articles'); ?>
 		<?php endif; ?>
+
 		<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
 			<?php echo JHtml::_('bootstrap.addTab', 'myTab', 'display-articles', JText::_('JGLOBAL_ARTICLES', true)); ?>
 		<?php endif; ?>
+
 		<?php if ($this->params->get('presentation_style') == 'plain'):?>
 			<?php echo '<h3>' . JText::_('JGLOBAL_ARTICLES') . '</h3>';  ?>
 		<?php endif; ?>
@@ -145,6 +159,7 @@ $cparams = JComponentHelper::getParams('com_media');
 		<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
 			<?php echo JHtml::_('bootstrap.endSlide'); ?>
 		<?php endif; ?>
+
 		<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
 			<?php echo JHtml::_('bootstrap.endTab'); ?>
 		<?php endif; ?>
@@ -152,7 +167,6 @@ $cparams = JComponentHelper::getParams('com_media');
 	<?php endif; ?>
 
 	<?php if ($this->params->get('show_profile') && $this->contact->user_id && JPluginHelper::isEnabled('user', 'profile')) : ?>
-
 		<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
 			<?php echo JHtml::_('bootstrap.addSlide', 'slide-contact', JText::_('COM_CONTACT_PROFILE'), 'display-profile'); ?>
 		<?php endif; ?>
@@ -171,11 +185,9 @@ $cparams = JComponentHelper::getParams('com_media');
 		<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
 			<?php echo JHtml::_('bootstrap.endTab'); ?>
 		<?php endif; ?>
-
 	<?php endif; ?>
 
 	<?php if ($this->contact->misc && $this->params->get('show_misc')) : ?>
-
 		<?php if ($this->params->get('presentation_style') == 'sliders') : ?>
 			<?php echo JHtml::_('bootstrap.addSlide', 'slide-contact', JText::_('COM_CONTACT_OTHER_INFORMATION'), 'display-misc'); ?>
 		<?php endif; ?>
@@ -216,4 +228,5 @@ $cparams = JComponentHelper::getParams('com_media');
 	<?php if ($this->params->get('presentation_style') == 'tabs') : ?>
 		<?php echo JHtml::_('bootstrap.endTabSet'); ?>
 	<?php endif; ?>
+	<?php echo $this->item->event->afterDisplayContent; ?>
 </div>
